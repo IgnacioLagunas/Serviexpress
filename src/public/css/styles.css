@@ -1,0 +1,93 @@
+body{
+    margin: 1rem;
+    color: #fff;
+    background-color: #0f0f0f;
+}
+
+#products-container{
+    margin-top: 20px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-gap: 10px;
+
+}
+.product{
+    max-width: 300px;
+    min-height: 300px;
+    margin-bottom: 20px;
+}
+
+.product img{
+    height: 200px;
+}
+.detailed_product_container{
+    margin-top: 70px;
+    max-width: 1000px;
+    display: flex;
+    column-gap: 30px;
+}
+
+.detailed_product_container img{
+    max-width: 200px;
+}
+
+.container {
+    margin: 1rem;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container h2 {
+    margin: 0;
+    color: #fff;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    margin-top: 10px;
+}
+
+.login-container input {
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+
+.login-container p {
+    text-align: left;
+    width: 100%;
+}
+
+.login-container span {
+    text-align: left;
+    width: 100%;
+    font-weight: 700;
+}
+
+.hidden{
+    display: none;
+}

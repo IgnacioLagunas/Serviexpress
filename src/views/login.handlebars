@@ -1,0 +1,21 @@
+<div class="container login-container">
+    <form action="/api/sessions/login" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="submit">
+    </form>
+    <form action="api/sessions/auth/google">
+        <input type="submit" value="GOOGLE" />
+    </form>
+    <form action="api/sessions/auth/github">
+        <input type="submit" value="GITHUB" />
+    </form>
+    <p>Has olvidado tu contraseña? <a href="http://localhost:8080/forgot-password">recuperala aquí</a>.</p>
+    <p>No cuentas con un usuario? <a href="http://localhost:8080/signup">registrate!</a></p>
+    <span>{{message}}</span>
+</div>
+
+{{!--
+<script src="/js/login.js"></script> --}}

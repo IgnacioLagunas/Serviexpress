@@ -1,0 +1,22 @@
+<h1>My Profile</h1>
+<br />
+<h4>Name: {{first_name}} {{last_name}}</h4>
+<h4>Email: {{email}}</h4>
+<h4>Role: {{role}}</h4>
+{{#if isAdmin}} <a href="/admin"> Admin Dashboard</a> {{/if}}
+<br />
+<h2>Upload Documents</h2>
+<form action="/api/users/documents" enctype="multipart/form-data" method="post" id="Form upload documents">
+
+    DNI:
+    <input type="file" name="dni" id="dni" />
+    <br />
+    Direccion:
+    <input type="file" name="address" id="address" />
+    <br />
+    BANK
+    <input type="file" name="bank" id="bank" />
+    <br />
+    <input type="submit" value="CARGAR" />
+
+</form>

@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: "Product API"
+  version: "1.0.0"
+paths:
+  /api/products/:
+    get:
+      summary: "Get all products"
+      operationId: "getAllProducts"
+      tags:
+        - "Products"
+      responses:
+        '200':
+          description: "Success. Returns the list of products."
+
+  /api/products/{id}:
+    get:
+      summary: "Get a product by ID"
+      operationId: "findProduct"
+      tags:
+        - "Products"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "ID of the product to retrieve"
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "Success. Returns the details of the product."
+        '404':
+          description: "Not Found. The product with the specified ID does not exist."
+
+    post:
+      summary: "Create a new product"
+      operationId: "createNewProduct"
+      tags:
+        - "Products"
+      security:
+        - tokenValidation: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        '201':
+          description: "Created. Returns the details of the new product."
+
+    put:
+      summary: "Update a product by ID"
+      operationId: "updateProduct"
+      tags:
+        - "Products"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "ID of the product to update"
+          schema:
+            type: "string"
+      security:
+        - tokenValidation: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        '200':
+          description: "Success. Returns the details of the updated product."
+        '404':
+          description: "Not Found. The product with the specified ID does not exist."
+
+    delete:
+      summary: "Delete a product by ID"
+      operationId: "deleteProduct"
+      tags:
+        - "Products"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "ID of the product to delete"
+          schema:
+            type: "string"
+      security:
+        - tokenValidation: []
+      responses:
+        '204':
+          description: "No Content. Product deleted successfully."
+        '404':
+          description: "Not Found. The product with the specified ID does not exist."
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - title
+        - price
+        - description
+      properties:
+        title:
+          type: string
+          description: "Title of the product"
+        price:
+          type: number
+          format: float
+          description: "Price of the product"
+        description:
+          type: string
+          default: "No data"
+          description: "Description of the product"
+        category:
+          type: string
+          default: "No category"
+          description: "Category of the product"
+        image:
+          type: string
+          default: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%2Fimages%3Fk%3Dno%2Bimage%2Bavailable&psig=AOvVaw353-XUks7sdWbHs6uyEF6T&ust=1699055914811000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJDBht3CpoIDFQAAAAAdAAAAABAE"
+          description: "URL of the product image"
+        stock:
+          type: number
+          default: 1
+          description: "Stock quantity of the product"
+        owner:
+          type: string
+          default: "admin"
+          description: "Owner of the product"
