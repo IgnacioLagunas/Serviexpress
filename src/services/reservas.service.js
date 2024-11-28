@@ -1,46 +1,52 @@
-import ReservasDAO from '../data-access/daos/reservas.dao.js';
+import ReservasDao from '../data-access/daos/reservas.dao.js';
+import ServiciosDao from '../data-access/daos/servicios.dao.js';
+import UsuariosDao from '../data-access/daos/usuarios.dao.js';
 import { EntitiyNotFoundError } from '../errors/errors.js';
 import { logger } from '../utils/logger.utils.js';
+import { ReservaDB } from '../data-access/dtos/reservaDTO.js';
 
 class ReservasService {
-  constructor(ReservasDAO) {
-    this.reservasDao = ReservasDAO;
+  constructor(ReservasDao, ServiciosDao, UsuariosDao) {
+    this.reservasDao = ReservasDao;
+    this.serviciosDao = ServiciosDao;
+    this.usuariosDao = UsuariosDao;
   }
   async getAll() {
-    const usuarios = await this.reservasDao.getAll();
-    return usuarios.map((user) => user.get());
+    const reservas = await this.reservasDao.getAll();
+    return reservas.map((user) => user.get());
+  }
+  async getByUser(id) {
+    const user = await this.usuariosDao.findOneById(id);
+    if (!user) throw new EntitiyNotFoundError(`Usuario id: ${id}`);
+    const reservas = await this.reservasDao.getByUserPK(user.get().id);
+    return reservas.map((reserva) => reserva.get());
   }
 
-  async createOne(usuario) {
-    const usuarioExiste = await this.findOneByEmail(usuario.email);
-    if (usuarioExiste) throw new UserAlreadyExistsError(usuario.email);
-    const nuevoUsuario = new UserDB({ ...usuario });
-    const usuarioCreado = await this.reservasDao.createOne(nuevoUsuario);
-    logger.http('Nuevo usuario: ', usuarioCreado.get());
-    return usuarioCreado.get();
+  async createOne(usuario_id, servicio_id, fecha_hora) {
+    const servicioExiste = await this.serviciosDao.findOneById(servicio_id);
+    if (!servicioExiste) throw new EntitiyNotFoundError('Servicio');
+    const nuevaReserva = new ReservaDB(usuario_id, servicio_id, fecha_hora);
+    console.log(nuevaReserva);
+    const reservaCreada = await this.reservasDao.createOne(nuevaReserva);
+    logger.http('Nueva reserva: ', reservaCreada.get());
+    return reservaCreada.get();
   }
 
   async updateOne(id, update) {
-    const usuario = await this.reservasDao.findOneById(id);
-    if (!usuario) throw new EntitiyNotFoundError('Usuario');
-    const nuevoUsuario = await this.reservasDao.updateOne(id, update);
-    logger.http('Usuario actualizado: ', nuevoUsuario.get());
-    return nuevoUsuario.get();
+    const reserva = await this.reservasDao.findOneById(id);
+    if (!reserva) throw new EntitiyNotFoundError('Reserva');
+    const nuevaReserva = await this.reservasDao.updateOne(id, update);
+    logger.http('Reserva actualizada: ', nuevaReserva.get());
+    return nuevaReserva.get();
   }
 
   async deleteOne(id) {
-    const user = await this.reservasDao.findOneById(id);
-    if (!user) throw new EntitiyNotFoundError('Usuario');
+    const reserva = await this.reservasDao.findOneById(id);
+    if (!reserva) throw new EntitiyNotFoundError('Reserva');
     const ans = await this.reservasDao.deleteOne(id);
-    if (ans == 0) throw new Error(`Error al eliminar usuario`);
-    logger.info('Usuario eliminado: ', user.get());
-    return user.get(); // 1
-  }
-
-  async findOneByEmail(email) {
-    const usuario = await this.reservasDao.findByEmail(email.toLowerCase());
-    if (!usuario) return null;
-    return usuario.get();
+    if (ans == 0) throw new Error(`Error al eliminar reserva`);
+    logger.info('Reserva eliminada: ', reserva.get());
+    return reserva.get(); // 1
   }
 }
-export default ReservasService = new ReservasService(UsuariosDao);
+export default new ReservasService(ReservasDao, ServiciosDao, UsuariosDao);

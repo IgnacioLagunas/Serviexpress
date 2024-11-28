@@ -13,12 +13,8 @@ Reserva.init(
       autoIncrement: true,
       allowNull: false,
     },
-    fecha_reserva: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    hora_reserva: {
-      type: DataTypes.TIME,
+    fecha_hora: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
     estado: {

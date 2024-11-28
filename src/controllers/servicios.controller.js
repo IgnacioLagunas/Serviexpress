@@ -18,8 +18,8 @@ class ServiciosController {
   findOne = async (req, res) => {
     try {
       const { id } = req.params;
-      const product = await ServiciosService.findOne(id);
-      res.status(200).json({ message: 'Servicio found', product });
+      const servicio = await ServiciosService.findOne(id);
+      res.status(200).json({ message: 'Servicio found', servicio });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

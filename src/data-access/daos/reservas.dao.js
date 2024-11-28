@@ -8,14 +8,14 @@ class ReservasDAO extends BasicDAO {
     super(Reserva);
   }
 
-  async findByUserPK(id) {
-    return await this.findMany({
+  async getByUserPK(id) {
+    return await this.getMany({
       where: { usuario_id: id },
       include: ['usuario', 'servicio'],
     });
   }
 
-  async findAll() {
+  async getAll() {
     return await this.model.findAll({
       include: [
         {
@@ -26,7 +26,7 @@ class ReservasDAO extends BasicDAO {
         {
           model: Servicio,
           as: 'servicio',
-          attributes: ['descripcion_servicio', 'precio'],
+          attributes: ['descripcion', 'precio'],
         },
       ],
     });

@@ -20,9 +20,9 @@ class ServiciosService {
 
   async updateOne(id, update) {
     const servicio = await this.findOne(id);
-    if (!servicio) throw new EntitiyNotFoundError('Product');
+    if (!servicio) throw new EntitiyNotFoundError('Servicio');
     const nuevoServicio = await this.serviciosDAO.updateOne(id, update);
-    logger.http('Product updated: ', nuevoServicio.get());
+    logger.http('Servicio updated: ', nuevoServicio.get());
     return nuevoServicio.get();
   }
 
@@ -38,7 +38,7 @@ class ServiciosService {
   async findOne(id) {
     if (!id) throw new EntitiyNotFoundError('Id');
     const result = await this.serviciosDAO.findOneById(id);
-    if (!result) throw new EntitiyNotFoundError('Product');
+    if (!result) throw new EntitiyNotFoundError('Servicio');
     return result.get();
   }
 }

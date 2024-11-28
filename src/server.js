@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import { logger } from './utils/logger.utils.js';
 import { swaggerSetup } from './config/swagger.config.js';
 import serviciosRouter from './routes/servicios.router.js';
+import reservasRouter from './routes/reservas.router.js';
 import cartsRouter from './routes/carts.router.js';
 import usuariosRouter from './routes/usuarios.router.js';
 import viewsRouter from './routes/views.router.js';
@@ -40,6 +41,7 @@ app.set('view engine', 'handlebars');
 
 // Rutas
 app.use('/api/servicios', serviciosRouter);
+app.use('/api/reservas', reservasRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/', viewsRouter);
 app.use('/api/users', usuariosRouter);
