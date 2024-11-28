@@ -29,12 +29,10 @@ export const UserJWT = (user) => {
 
 export class UserDB {
   constructor(user) {
-    this.nombre = user.first_name;
-    this.apellido = user.last_name;
-    this.email = user.username
-      ? user.username.toLowerCase()
-      : user.email.toLowerCase();
+    this.nombre = user.nombre;
+    this.apellido = user.apellido;
+    this.email = user.email.toLowerCase();
     this.password = user.password ? createHash(user.password) : null;
-    this.rol = user.role;
+    this.rol = user.rol;
   }
 }

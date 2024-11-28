@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../../config/db.config.js';
+import { sequelize } from '../../config/db.config.js'; // La instancia de sequelize
 
 class Servicio extends Model {}
 
@@ -27,10 +27,10 @@ Servicio.init(
     },
   },
   {
-    sequelize, // La instancia de sequelize
-    modelName: 'Servicio', // Nombre del modelo
+    sequelize,
+    modelName: 'Servicio',
     tableName: 'servicios',
-    timestamps: false, // Si no necesitas campos createdAt, updatedAt
+    timestamps: false,
   }
 );
 

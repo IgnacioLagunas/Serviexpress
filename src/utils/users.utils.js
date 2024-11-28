@@ -1,4 +1,4 @@
-import usersService from '../services/users.service.js';
+import usersService from '../services/usuarios.service.js';
 
 export const returnMissingDocuments = (user) => {
   const requiredDocumentTypes = ['dni', 'address', 'bank'];
@@ -14,7 +14,7 @@ export const returnMissingDocuments = (user) => {
 };
 
 export const updateLastConnection = (user) => {
-  usersService.updateOne(user._id, {
+  usersService.updateOne(user.id, {
     last_connection: new Date(),
   });
 };

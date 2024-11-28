@@ -1,15 +1,8 @@
 import UsuariosDao from '../data-access/daos/usuarios.dao.js';
 import { UserDB } from '../data-access/dtos/userDTOs.js';
-import {
-  CannotChangeAdminRoleError,
-  CannotTurnUserIntoAdminError,
-  MissingRequiredDocumentsError,
-  UserAlreadyThisRoleError,
-  UserAlreadyExistsError,
-} from '../errors/user.errors.js';
+import { EntitiyNotFoundError } from '../errors/errors.js';
+import { UserAlreadyExistsError } from '../errors/user.errors.js';
 import { logger } from '../utils/logger.utils.js';
-import { sendAccountDeletionEmail } from '../utils/mailer.utils.js';
-import { returnMissingDocuments } from '../utils/users.utils.js';
 
 class UsersService {
   constructor(UsuariosDao) {
@@ -38,10 +31,12 @@ class UsersService {
   }
 
   async deleteOne(id) {
+    const user = await this.usuariosDao.findOneById(id);
+    if (!user) throw new EntitiyNotFoundError('Usuario');
     const ans = await this.usuariosDao.deleteOne(id);
-    if (ans == 0) throw new EntitiyNotFoundError(`Usuario con id: ${id}`);
-    logger.info('Usuario eliminado: ', { id });
-    return ans; // 1
+    if (ans == 0) throw new Error(`Error al eliminar usuario`);
+    logger.info('Usuario eliminado: ', user.get());
+    return user.get(); // 1
   }
 
   async findOneByEmail(email) {

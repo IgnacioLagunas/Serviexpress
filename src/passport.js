@@ -3,7 +3,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
-import UsersService from './services/users.service.js';
+import UsuariosService from './services/usuarios.service.js';
 import { isPasswordValid } from './utils/password.utils.js';
 import config from './config/config.js';
 
@@ -28,7 +28,7 @@ let opts = {
 passport.use(
   new JWTStrategy(opts, async (jwt_payload, done) => {
     try {
-      const user = await UsersService.findOneByEmail(jwt_payload.email);
+      const user = await UsuariosService.findOneByEmail(jwt_payload.email);
       if (!user) {
         return done(null, false);
       }
@@ -49,7 +49,7 @@ passport.use(
     { usernameField: 'email' },
     async (username, password, done) => {
       try {
-        const user = await UsersService.findOneByEmail(username);
+        const user = await UsuariosService.findOneByEmail(username);
         if (!user) {
           return done(null, false);
         }
@@ -71,13 +71,13 @@ passport.use(
     { passReqToCallback: true, usernameField: 'email' },
     async (req, username, password, done) => {
       try {
-        const user = await UsersService.findOneByEmail(username);
+        const user = await UsuariosService.findOneByEmail(username);
         if (user) {
           return done(null, false, {
             message: `User ${username} already exists.`,
           });
         }
-        const newUser = await UsersService.createOne(req.body);
+        const newUser = await UsuariosService.createOne(req.body);
         return done(null, newUser);
       } catch (error) {
         return done(error);
@@ -100,14 +100,14 @@ passport.use(
       // Al resolver el callback, si todo sale bien con google se implementa esta logica
       const { _json: googleUser } = profile;
       try {
-        const userInDB = await UsersService.findOneByEmail(googleUser.email);
+        const userInDB = await UsuariosService.findOneByEmail(googleUser.email);
         if (!userInDB) {
           const {
             given_name: first_name,
             family_name: last_name,
             email,
           } = googleUser;
-          const newUser = await UsersService.createOne({
+          const newUser = await UsuariosService.createOne({
             first_name,
             last_name,
             email: email.toLowerCase(),
@@ -141,10 +141,10 @@ passport.use(
       }
       const email = emails[0].value;
       try {
-        const user = await UsersService.findOneByEmail(email);
+        const user = await UsuariosService.findOneByEmail(email);
         if (!user) {
           const [first_name, last_name] = name.split(' ');
-          const newUser = await UsersService.createOne({
+          const newUser = await UsuariosService.createOne({
             first_name,
             last_name,
             email,

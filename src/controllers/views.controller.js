@@ -1,5 +1,5 @@
 import { MissingDataError } from '../errors/errors.js';
-import ProductsService from '../services/products.service.js';
+import ServiciosService from '../services/servicios.service.js';
 
 class ViewsController {
   renderViewHome = (req, res) => {
@@ -21,7 +21,7 @@ class ViewsController {
 
   renderViewProduct = async (req, res) => {
     const { productId } = req.params;
-    const product = await ProductsService.findOne(productId);
+    const product = await ServiciosService.findOne(productId);
     res.render('product', product);
   };
 

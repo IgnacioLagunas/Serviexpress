@@ -1,6 +1,6 @@
 import config from '../config/config.js';
 import { EntitiyNotFoundError, MissingDataError } from '../errors/errors.js';
-import usersService from '../services/users.service.js';
+import usuariosService from '../services/usuarios.service.js';
 import { generateNewToken, verifyToken } from '../utils/jwt.utils.js';
 import passport from 'passport';
 import { logger } from '../utils/logger.utils.js';
@@ -51,7 +51,7 @@ export const checkTokenForPasswordChangeMiddleware = async (req, res, next) => {
     if (!token || !id) {
       throw new MissingDataError();
     }
-    const user = await usersService.findOne(id);
+    const user = await usuariosService.findOne(id);
     if (!user) {
       throw new EntitiyNotFoundError(`User with id ${id}`);
     }

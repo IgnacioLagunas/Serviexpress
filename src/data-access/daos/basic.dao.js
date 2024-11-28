@@ -10,6 +10,10 @@ class BasicDAO {
     return await this.model.findAll();
   }
 
+  async getMany(query) {
+    return await this.model.findAll(query); // findAll usa where para filtrar
+  }
+
   // Crea un registro
   async createOne(obj) {
     return await this.model.create(obj);

@@ -3,7 +3,7 @@ import { CartPurchaseResponse } from '../data-access/dtos/cartDTOs.js';
 import { CartNotFoundError, CartIsEmptyError } from '../errors/cart.errors.js';
 import { EntitiyNotFoundError } from '../errors/errors.js';
 import { logger } from '../utils/logger.utils.js';
-import ProductsService from './products.service.js';
+import ProductsService from './servicios.service.js';
 import TicketsService from './tickets.service.js';
 import mongoose from 'mongoose';
 

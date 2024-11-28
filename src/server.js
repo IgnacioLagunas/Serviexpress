@@ -3,9 +3,9 @@ import { engine } from 'express-handlebars';
 import swaggerUi from 'swagger-ui-express';
 import { logger } from './utils/logger.utils.js';
 import { swaggerSetup } from './config/swagger.config.js';
-import productsRouter from './routes/products.router.js';
+import serviciosRouter from './routes/servicios.router.js';
 import cartsRouter from './routes/carts.router.js';
-import usersRouter from './routes/users.router.js';
+import usuariosRouter from './routes/usuarios.router.js';
 import viewsRouter from './routes/views.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import passwordRouter from './routes/password.router.js';
@@ -39,10 +39,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
 // Rutas
-app.use('/api/products', productsRouter);
+app.use('/api/servicios', serviciosRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/', viewsRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/users', usuariosRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/password', passwordRouter);
 app.use('/api/test', testRouter);

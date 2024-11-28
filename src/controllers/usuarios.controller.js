@@ -4,14 +4,14 @@ import {
   MissingDataError,
   RequestBodyRequiredError,
 } from '../errors/errors.js';
-import UsersService from '../services/users.service.js';
+import UsuariosService from '../services/usuarios.service.js';
 import { isObjectEmpty } from '../utils/utils.js';
 
 class UsersController {
   getAllUsers = async (req, res) => {
     try {
-      const users = await UsersService.getAll();
-      res.status(200).json({ message: 'users: ', users });
+      const usuarios = await UsuariosService.getAll();
+      res.status(200).json({ message: 'usuarios: ', usuarios });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
     }
@@ -20,7 +20,7 @@ class UsersController {
   getUserByEmail = async (req, res) => {
     try {
       const { email } = req.params;
-      const user = await UsersService.findOneByEmail(email);
+      const user = await UsuariosService.findOneByEmail(email);
       if (!user) throw new EntitiyNotFoundError('User');
       res.status(200).json({ message: 'User found', user: UserResponse(user) });
     } catch (error) {
@@ -32,7 +32,7 @@ class UsersController {
   findUserById = async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await UsersService.findOne(id);
+      const user = await UsuariosService.findOne(id);
       if (!user) throw new EntitiyNotFoundError('User');
       res.status(200).json({ message: 'User found', user });
     } catch (error) {
@@ -42,11 +42,7 @@ class UsersController {
 
   createNewUser = async (req, res) => {
     try {
-      const { first_name, last_name, email } = req.body;
-      if ((!first_name, !last_name, !email)) {
-        throw new MissingDataError();
-      }
-      const createdUser = await UsersService.createOne(req.body);
+      const createdUser = await UsuariosService.createOne(req.body);
       res.status(200).json({ message: 'User created', createdUser });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
@@ -60,7 +56,7 @@ class UsersController {
       if (isObjectEmpty(update)) {
         throw new RequestBodyRequiredError();
       }
-      await UsersService.updateOne(id, update);
+      await UsuariosService.updateOne(id, update);
       res.status(200).json({ message: 'Usuario Actualizado con éxito!' });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
@@ -70,7 +66,7 @@ class UsersController {
   upgradeOrDowngradeUser = async (req, res) => {
     try {
       const { id, role } = req.params;
-      await UsersService.upgradeOrDowngradeUser(id, role);
+      await UsuariosService.upgradeOrDowngradeUser(id, role);
       res.status(200).json({ message: `User's role updated to ${role}` });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
@@ -80,7 +76,7 @@ class UsersController {
   deleteUser = async (req, res) => {
     try {
       const { id } = req.params;
-      const userDeleted = await UsersService.deleteOne(id);
+      const userDeleted = await UsuariosService.deleteOne(id);
       res.status(200).json({ message: 'User deleted', userDeleted });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
@@ -89,8 +85,8 @@ class UsersController {
 
   deleteInnactiveUsers = async (req, res) => {
     try {
-      await UsersService.deleteInnactive();
-      res.status(200).json({ message: 'Innactive users deleted' });
+      await UsuariosService.deleteInnactive();
+      res.status(200).json({ message: 'Innactive usuarios deleted' });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
     }
@@ -98,7 +94,7 @@ class UsersController {
 
   saveUserDocuments = async ({ user: { _id }, files }, res) => {
     try {
-      const updatedUser = await UsersService.saveDocuments(_id, files);
+      const updatedUser = await UsuariosService.saveDocuments(_id, files);
       res.status(200).json({ message: 'User documents updated', updatedUser });
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });

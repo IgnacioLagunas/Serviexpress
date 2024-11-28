@@ -1,17 +1,17 @@
 import { Router } from 'express';
 import upload from '../middleware/multer.middleware.js';
-import UsersController from '../controllers/users.controller.js';
+import UsuariosController from '../controllers/usuarios.controller.js';
 import { tokenValidationMiddleware } from '../middleware/jwt.middleware.js';
 import { hasAuthorizedRoleMiddleware } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
-router.get('/', UsersController.getAllUsers);
-router.get('/:email', UsersController.getUserByEmail);
+router.get('/', UsuariosController.getAllUsers);
+router.get('/:email', UsuariosController.getUserByEmail);
 
-router.get('/:id', UsersController.findUserById);
+router.get('/:id', UsuariosController.findUserById);
 
-router.post('/', UsersController.createNewUser);
+router.post('/', UsuariosController.createNewUser);
 
 router.post(
   '/documents',
@@ -21,29 +21,29 @@ router.post(
     { name: 'address', maxCount: 1 },
     { name: 'bank', maxCount: 1 },
   ]),
-  UsersController.saveUserDocuments
+  UsuariosController.saveUserDocuments
 );
 
 router.put(
   '/:id',
   //  tokenValidationMiddleware,
-  UsersController.updateUser
+  UsuariosController.updateUser
 );
 
 router.put(
   '/:role/:id',
   tokenValidationMiddleware,
   hasAuthorizedRoleMiddleware(['admin']),
-  UsersController.upgradeOrDowngradeUser
+  UsuariosController.upgradeOrDowngradeUser
 );
 
 router.delete(
   '/innactive',
   tokenValidationMiddleware,
   hasAuthorizedRoleMiddleware(['admin']),
-  UsersController.deleteInnactiveUsers
+  UsuariosController.deleteInnactiveUsers
 );
 
-router.delete('/:id', UsersController.deleteUser);
+router.delete('/:id', UsuariosController.deleteUser);
 
 export default router;
