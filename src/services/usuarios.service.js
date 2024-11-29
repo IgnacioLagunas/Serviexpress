@@ -14,6 +14,7 @@ class UsersService {
   }
 
   async createOne(usuario) {
+    console.log(usuario);
     const usuarioExiste = await this.findOneByEmail(usuario.email);
     if (usuarioExiste) throw new UserAlreadyExistsError(usuario.email);
     const nuevoUsuario = new UserDB({ ...usuario });

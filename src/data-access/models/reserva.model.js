@@ -29,7 +29,7 @@ Reserva.init(
   {
     sequelize,
     modelName: 'Reserva',
-    tableName: 'reservas_horas',
+    tableName: 'reservas',
     timestamps: false,
   }
 );

@@ -6,9 +6,7 @@ class ServiciosController {
       const servicios = await ServiciosService.getAll();
       res.status(200).json({
         message: 'Servicios: ',
-        servicios: {
-          ...servicios,
-        },
+        servicios,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });

@@ -21,9 +21,9 @@ router.get(
 );
 
 router.get(
-  '/product/:productId',
+  '/servicio/:servicioId',
   tokenValidationMiddleware,
-  ViewsController.renderViewProduct
+  ViewsController.renderViewServicio
 );
 
 router.get('/cart', tokenValidationMiddleware, ViewsController.renderViewCart);
@@ -34,9 +34,19 @@ router.get('/cart', tokenValidationMiddleware, ViewsController.renderViewCart);
 //   ViewsController.renderViewPurchase
 // );
 
-router.get('/login', ViewsController.renderViewLogin);
+router.get(
+  '/login',
+  // tokenValidationMiddleware,
+  ViewsController.renderViewLogin
+);
 
 router.get('/signup', ViewsController.renderViewSignup);
+
+router.get(
+  '/reservas',
+  tokenValidationMiddleware,
+  ViewsController.renderViewReservas
+);
 
 router.get(
   '/change-password/:id/:token',

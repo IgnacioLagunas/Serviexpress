@@ -1,11 +1,25 @@
-body{
-    margin: 1rem;
-    color: #fff;
-    background-color: #0f0f0f;
+html{
+    scroll-behavior: smooth;
+    background-color: #2a3140;
+    margin: 0 10%;
+    max-width: 2200px;
 }
 
+body{
+  
+    color: #fff;
+    background-color: #0f0f0f00;
+}
+/* styles.css */
+
+nav {
+    margin-top: 1rem;
+    
+}
+  
+
 #products-container{
-    margin-top: 20px;
+    margin-top: 5rem;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -90,4 +104,13 @@ body{
 
 .hidden{
     display: none;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #fff;
+}
+#reservas-container{
+    width: 100%;
 }

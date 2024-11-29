@@ -30,7 +30,7 @@ Usuario.init(
     },
     rol: {
       type: DataTypes.ENUM('Cliente', 'Empleado', 'Administrador'),
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

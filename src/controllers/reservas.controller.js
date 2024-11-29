@@ -7,9 +7,7 @@ class ReservasController {
       const reservas = await ReservasService.getAll();
       res.status(200).json({
         message: 'Reservas: ',
-        reservas: {
-          ...reservas,
-        },
+        reservas,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -18,14 +16,11 @@ class ReservasController {
 
   getByUser = async (req, res) => {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const reservas = await ReservasService.getByUser(id);
       res.status(200).json({
         message: 'Reservas: ',
-        email,
-        reservas: {
-          ...reservas,
-        },
+        reservas,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });

@@ -1,0 +1,56 @@
+<section class="products">
+
+    <div>
+
+        {{#if (eq rol "Administrador")}}
+        <h2>Reservas de clientes</h2>
+        {{else}}
+        <h2>Mis reservas</h2>
+        {{/if}}
+
+    </div>
+    <div id="reservas-container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">fecha </th>
+                    <th scope="col">cliente</th>
+                    <th scope="col">estado</th>
+                    {{#if (eq rol "Administrador")}}
+                    <th scope="col"></th>
+                    {{/if}}
+                </tr>
+            </thead>
+            <tbody class="tabla-reservas">
+                <tr>
+                    <th scope="row">Mercury</th>
+                    <td>4,880</td>
+                    <td>0.39</td>
+                    <td>88</td>
+                </tr>
+                <tr>
+                    <th scope="row">Venus</th>
+                    <td>12,104</td>
+                    <td>0.72</td>
+                    <td>225</td>
+                </tr>
+                <tr>
+                    <th scope="row">Earth</th>
+                    <td>12,742</td>
+                    <td>1.00</td>
+                    <td>365</td>
+                </tr>
+                <tr>
+                    <th scope="row">Mars</th>
+                    <td>6,779</td>
+                    <td>1.52</td>
+                    <td>687</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</section>
+<script src="/js/reservas.js"></script>

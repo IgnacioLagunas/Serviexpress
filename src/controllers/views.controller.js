@@ -3,6 +3,7 @@ import ServiciosService from '../services/servicios.service.js';
 
 class ViewsController {
   renderViewHome = (req, res) => {
+    console.log('llega en renderViewHome', req.user);
     res.render('home', req.user);
   };
 
@@ -19,10 +20,11 @@ class ViewsController {
     res.render('admin', req.user);
   };
 
-  renderViewProduct = async (req, res) => {
-    const { productId } = req.params;
-    const product = await ServiciosService.findOne(productId);
-    res.render('product', product);
+  renderViewServicio = async (req, res) => {
+    const { servicioId } = req.params;
+    console.log(servicioId);
+    const servicio = await ServiciosService.findOne(servicioId);
+    res.render('servicio', servicio);
   };
 
   renderViewCart = (req, res) => {
@@ -35,6 +37,7 @@ class ViewsController {
   // };
 
   renderViewLogin = (req, res) => {
+    console.log('llega en renderViewLogin', req.user);
     if (req.user) return res.redirect('/home');
     // const message = req.session.messages
     //   ? req.session.messages[req.session.messages.length - 1]
@@ -52,6 +55,9 @@ class ViewsController {
 
   renderViewForgotPassword = (req, res) => {
     res.render('forgot-password');
+  };
+  renderViewReservas = (req, res) => {
+    res.render('reservas', req.user);
   };
 
   renderViewChangePassword = (req, res) => {

@@ -9,15 +9,6 @@ export const UserResponse = (user) => {
   };
 };
 
-export const UserResponseWithCart = (user) => {
-  return {
-    name: `${user.first_name} ${user.last_name}`,
-    email: user.email,
-    cart: user.cart,
-    role: user.role,
-  };
-};
-
 export const UserJWT = (user) => {
   return {
     first_name: user.first_name,

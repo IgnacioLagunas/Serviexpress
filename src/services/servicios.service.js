@@ -36,6 +36,7 @@ class ServiciosService {
   }
 
   async findOne(id) {
+    console.log(id);
     if (!id) throw new EntitiyNotFoundError('Id');
     const result = await this.serviciosDAO.findOneById(id);
     if (!result) throw new EntitiyNotFoundError('Servicio');

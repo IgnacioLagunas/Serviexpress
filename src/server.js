@@ -10,8 +10,6 @@ import usuariosRouter from './routes/usuarios.router.js';
 import viewsRouter from './routes/views.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import passwordRouter from './routes/password.router.js';
-import testRouter from './routes/tests.router.js';
-import mocksRouter from './routes/mocks.router.js';
 import { __dirname } from './utils/utils.js';
 import config from './config/config.js';
 import passport from 'passport';
@@ -35,9 +33,18 @@ app.use(cookieParser());
 app.use(passport.initialize());
 
 //Handlebars
-app.engine('handlebars', engine());
+app.engine(
+  'handlebars',
+  engine({
+    helpers: {
+      eq: (a, b) => a === b, // Define el helper `eq`
+    },
+  })
+);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+
+// Middleware para configurar res.locals
 
 // Rutas
 app.use('/api/servicios', serviciosRouter);
@@ -47,8 +54,6 @@ app.use('/', viewsRouter);
 app.use('/api/users', usuariosRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/password', passwordRouter);
-app.use('/api/test', testRouter);
-app.use('/api/mock', mocksRouter);
 app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 //Swagger
 

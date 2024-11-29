@@ -105,3 +105,13 @@ VALUES (
         '1234',
         'Empleado'
     );
+--@block
+delete from servicios;
+INSERT INTO Servicios (Descripcion, Precio)
+VALUES ('Cambio de aceite', 20000),
+    ('Chequeo general', 15000),
+    ('Cambio de neumáticos', 50000),
+    ('Alineación y balanceo', 25000),
+    ('Revisión de frenos', 10000),
+    ('Reemplazo de batería', 30000),
+    ('Servicio de climatización', 18000);

@@ -19,6 +19,7 @@ class ReservasService {
     const user = await this.usuariosDao.findOneById(id);
     if (!user) throw new EntitiyNotFoundError(`Usuario id: ${id}`);
     const reservas = await this.reservasDao.getByUserPK(user.get().id);
+    console.log('pasa', reservas);
     return reservas.map((reserva) => reserva.get());
   }
 
